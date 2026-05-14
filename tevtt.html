@@ -5,108 +5,134 @@
 <title>ParkWatch · Center Shopping UDI</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;
-       justify-content:center;min-height:100vh;font-family:'Courier New',monospace;}
-  #scene{position:relative;width:100%;max-width:1266px;padding-bottom:50.079%;}
-  #scene svg{position:absolute;inset:0;width:100%;height:100%;}
-  #bar-ctrl{width:100%;max-width:1266px;background:rgba(0,0,0,.92);
-    border-top:1px solid rgba(0,255,60,.08);padding:6px 16px;
-    display:flex;align-items:center;gap:12px;}
-  #bar-ctrl button{background:transparent;border:1px solid #003300;color:#00aa33;
-    padding:4px 14px;cursor:pointer;font-family:'Courier New',monospace;
-    font-size:10px;letter-spacing:1px;transition:all .2s;}
-  #bar-ctrl button:hover,#bar-ctrl button.on{
-    background:rgba(0,255,60,.1);border-color:#00ff44;color:#00ff44;}
-  #bar-ctrl .ver{margin-left:auto;font-size:9px;color:rgba(0,255,60,.18);letter-spacing:1px;}
-
-  /* ── MINIMAPA ── */
-  #minimap-wrap{
-    position:fixed;
-    bottom:60px;
-    right:16px;
-    width:160px;
-    background:#111;
-    border:1px solid rgba(0,255,60,.25);
-    border-radius:4px;
-    overflow:hidden;
-    z-index:100;
-  }
-  #minimap-label{
-    font-size:8px;letter-spacing:1px;color:rgba(0,255,60,.5);
-    padding:3px 6px;border-bottom:1px solid rgba(0,255,60,.1);
+  body{
     background:#0a0a0a;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    font-family:'Courier New',monospace;
   }
-  #minimap-inner{
+
+  #scene{
     position:relative;
-    width:160px;
-    /* imagem original: 800×1480 → escala: 160/800 = 0.2 → altura: 1480*0.2 = 296 */
-    height:296px;
+    width:100%;
+    max-width:1266px;
+    padding-bottom:50.079%;
+  }
+
+  #scene svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+  }
+
+  #bar-ctrl{
+    width:100%;
+    max-width:1266px;
+    background:rgba(0,0,0,.92);
+    border-top:1px solid rgba(0,255,60,.08);
+    padding:6px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  #bar-ctrl button{
+    background:transparent;
+    border:1px solid #003300;
+    color:#00aa33;
+    padding:4px 14px;
+    cursor:pointer;
+    font-family:'Courier New',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    transition:all .2s;
+  }
+
+  #bar-ctrl button:hover,
+  #bar-ctrl button.on{
+    background:rgba(0,255,60,.1);
+    border-color:#00ff44;
+    color:#00ff44;
+  }
+
+  #bar-ctrl .ver{
+    margin-left:auto;
+    font-size:9px;
+    color:rgba(0,255,60,.18);
+    letter-spacing:1px;
+  }
+
+  #minimap{
+    position:fixed;
+    right:12px;
+    bottom:12px;
+    width:220px;
+    aspect-ratio:853 / 1536;
+    border:1px solid rgba(255,255,255,.12);
     overflow:hidden;
+    background:#d8d2bf;
+    z-index:20;
+    pointer-events:none;
   }
-  #minimap-inner img{
+
+  #minimap svg{
     position:absolute;
-    top:0;left:0;
-    width:160px;
-    height:296px;
-    object-fit:cover;
-    opacity:0.85;
-  }
-  #minimap-svg{
-    position:absolute;
-    top:0;left:0;
-    width:160px;
-    height:296px;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:block;
   }
 </style>
 </head>
 <body>
-<div id="scene">
-<svg id="main-svg" viewBox="0 0 1266 634" preserveAspectRatio="xMidYMid meet"
-     xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="2.5" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-  <image href="shopp.jpeg" x="0" y="0" width="1266" height="634"
-         preserveAspectRatio="xMidYMid meet"/>
-  <g id="g-debug" display="none"></g>
-  <g id="g-cars"></g>
-</svg>
-</div>
 
-<!-- MINIMAPA -->
-<div id="minimap-wrap">
-  <div id="minimap-label">▣ VISTA AÉREA</div>
-  <div id="minimap-inner">
-    <img id="minimap-img" src="sdfas.jpeg" alt="mapa aéreo" width="800%"/>
-    <svg id="minimap-svg" viewBox="0 0 160 296" xmlns="http://www.w3.org/2000/svg">
-      <g id="g-minimap-dots"></g>
-    </svg>
-  </div>
+<div id="scene">
+  <svg id="main-svg" viewBox="0 0 1266 634" preserveAspectRatio="xMidYMid meet"
+       xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="2.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+
+    <image href="shopp.jpeg" x="0" y="0" width="1266" height="634"
+           preserveAspectRatio="xMidYMid meet"/>
+
+    <g id="g-debug" display="none"></g>
+    <g id="g-cars"></g>
+  </svg>
 </div>
 
 <div id="bar-ctrl">
   <button id="btn-debug" onclick="toggleDebug()">▣ ROTAS: OFF</button>
   <button id="btn-speed" onclick="toggleSpeed()">⏩ NORMAL</button>
-  <button id="btn-minimap" onclick="toggleMinimap()">🗺 MAPA: ON</button>
   <span class="ver">PARKWATCH v2.0 · CENTER SHOPPING UDI</span>
+</div>
+
+<div id="minimap">
+  <svg id="mini-svg" viewBox="0 0 853 1536" preserveAspectRatio="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <image href="sdfas.jpeg" x="0" y="0" width="853" height="1536"
+           preserveAspectRatio="none"/>
+    <g id="mini-cars"></g>
+  </svg>
 </div>
 
 <script>
 'use strict';
 
-/* ════════════════════════════════════════════════
-   ROTAS DA CÂMERA (coordenadas originais)
-════════════════════════════════════════════════ */
 const UPPER = [
   {x:1141,y:306},{x:1101,y:284},{x:1049,y:258},{x:986,y:234},
-  {x:959,y:241},{x:941,y:247},{x:919,y:252},{x:899,y:259},
-  {x:877,y:262},{x:851,y:269},{x:826,y:274},{x:801,y:280},
-  {x:772,y:286},{x:747,y:292},{x:721,y:298},{x:695,y:305},
-  {x:663,y:310},{x:638,y:316},{x:607,y:324},{x:581,y:331},
-  {x:547,y:338},{x:517,y:346},{x:483,y:354},{x:458,y:365}
+  {x:959,y:241}, {x:941,y:247}, {x:919,y:252}, {x:899,y:259},
+  {x:877,y:262}, {x:851,y:269}, {x:826,y:274}, {x:801,y:280},
+  {x:772,y:286}, {x:747,y:292}, {x:721,y:298}, {x:695,y:305},
+  {x:663,y:310}, {x:638,y:316}, {x:607,y:324}, {x:581,y:331},
+  {x:547,y:338}, {x:517,y:346}, {x:483,y:354}, {x:458,y:365}
 ];
 
 const LOWER = [
@@ -120,9 +146,18 @@ const LOWER = [
 ];
 
 const ENTRY = [
-  {x:36,y:442},{x:66,y:446},{x:103,y:444},{x:138,y:438},
-  {x:170,y:434},{x:198,y:429},{x:223,y:423},{x:271,y:412},
-  {x:307,y:399},{x:344,y:389},{x:379,y:380},{x:426,y:366},
+  {x:36,y:442},
+  {x:66,y:446},
+  {x:103,y:444},
+  {x:138,y:438},
+  {x:170,y:434},
+  {x:198,y:429},
+  {x:223,y:423},
+  {x:271,y:412},
+  {x:307,y:399},
+  {x:344,y:389},
+  {x:379,y:380},
+  {x:426,y:366},
   {x:517,y:346}
 ];
 
@@ -141,6 +176,54 @@ const VIAS = [
 const VIA_ENTRY = [5,7,9,11,13,15,17,19,21];
 const VIA_EXIT  = [23,21,19,17,15,13,11,9,7];
 
+const MINI_UPPER = [
+  {x:500,y:1173},{x:499,y:1128},{x:498,y:1087},{x:500,y:1048},
+  {x:496,y:1006},{x:494,y:970},{x:494,y:928},{x:493,y:889},
+  {x:490,y:845},{x:482,y:813},{x:478,y:768},{x:484,y:730},
+  {x:479,y:691},{x:482,y:653},{x:477,y:615},{x:476,y:575},
+  {x:476,y:532},{x:477,y:497},{x:472,y:455},{x:475,y:419},
+  {x:468,y:381}
+];
+
+const MINI_LOWER = [
+  {x:215,y:391},{x:223,y:424},{x:232,y:472},{x:231,y:536},
+  {x:232,y:584},{x:240,y:616},{x:248,y:663},{x:248,y:696},
+  {x:247,y:744},{x:255,y:776},{x:263,y:824},{x:263,y:856},
+  {x:263,y:887},{x:249,y:936},{x:247,y:983},{x:240,y:1016},
+  {x:232,y:1055},{x:234,y:1095},{x:232,y:1144},{x:242,y:1176}
+];
+
+const MINI_ENTRY = [
+  {x:180,y:1530},
+  {x:176,y:1460},
+  {x:178,y:1380},
+  {x:184,y:1300},
+  {x:190,y:1220},
+  {x:198,y:1140},
+  {x:206,y:1060},
+  {x:214,y:980},
+  {x:222,y:900},
+  {x:230,y:820},
+  {x:236,y:740},
+  {x:240,y:660},
+  {x:244,y:580},
+  {x:247,y:500},
+  {x:250,y:420},
+  {x:252,y:391}
+];
+
+const MINI_VIAS = [
+  [{x:492,y:970},{x:430,y:960},{x:365,y:948},{x:300,y:935},{x:249,y:936}],
+  [{x:493,y:889},{x:430,y:880},{x:360,y:868},{x:263,y:887}],
+  [{x:490,y:845},{x:420,y:834},{x:345,y:820},{x:263,y:824}],
+  [{x:478,y:768},{x:410,y:756},{x:335,y:748},{x:247,y:744}],
+  [{x:479,y:691},{x:405,y:682},{x:330,y:675},{x:248,y:663}],
+  [{x:477,y:615},{x:400,y:610},{x:320,y:608},{x:240,y:616}],
+  [{x:476,y:532},{x:396,y:530},{x:315,y:532},{x:231,y:536}],
+  [{x:472,y:455},{x:392,y:460},{x:312,y:470},{x:232,y:472}],
+  [{x:468,y:381},{x:388,y:392},{x:310,y:408},{x:223,y:424}]
+];
+
 function buildPath(viaIdx) {
   if (viaIdx < 0) return [...ENTRY, ...LOWER.slice(1)];
   return [
@@ -155,107 +238,110 @@ function perspScale(y) {
   return 0.42 + 0.50 * t;
 }
 
-function ptDist(a, b) { return Math.hypot(b.x - a.x, b.y - a.y); }
-
-/* ════════════════════════════════════════════════
-   CORRESPONDÊNCIA CÂMERA ↔ MAPA AÉREO
-   A1 (câmera) ↔ A2 (aéreo)
-   B1 (câmera) ↔ B2 (aéreo)
-
-   A imagem aérea original: ~800×1480px
-   No minimapa: 160×296px → escala = 0.2
-   Todas as coords A2/B2 são multiplicadas por 0.2
-════════════════════════════════════════════════ */
-
-// A1: pontos UPPER índices 3..23 (986,234) → (458,365)
-const A1 = [
-  {x:986,y:234},{x:959,y:241},{x:941,y:247},{x:919,y:252},
-  {x:899,y:259},{x:877,y:262},{x:851,y:269},{x:826,y:274},
-  {x:801,y:280},{x:772,y:286},{x:747,y:292},{x:721,y:298},
-  {x:695,y:305},{x:663,y:310},{x:638,y:316},{x:607,y:324},
-  {x:581,y:331},{x:547,y:338},{x:517,y:346},{x:483,y:354},
-  {x:458,y:365}
-];
-
-// A2: coordenadas no mapa aéreo (800×1480) → escala 0.2 para 160×296
-const A2_raw = [
-  {x:500,y:1173},{x:499,y:1128},{x:498,y:1087},{x:500,y:1048},
-  {x:496,y:1006},{x:494,y:970},{x:494,y:928},{x:493,y:889},
-  {x:490,y:845},{x:482,y:813},{x:478,y:768},{x:484,y:730},
-  {x:479,y:691},{x:482,y:653},{x:477,y:615},{x:476,y:575},
-  {x:476,y:532},{x:477,y:497},{x:472,y:455},{x:475,y:419},
-  {x:468,y:381}
-];
-const SC = 0.2; // 160/800
-const A2 = A2_raw.map(p => ({x: p.x * SC, y: p.y * SC}));
-
-// B1: pontos LOWER índices 5..25 (560,501) → (1141,306)
-const B1 = [
-  {x:560,y:501},{x:590,y:488},{x:630,y:469},{x:664,y:455},
-  {x:695,y:443},{x:728,y:432},{x:759,y:422},{x:791,y:412},
-  {x:818,y:403},{x:849,y:392},{x:877,y:384},{x:914,y:374},
-  {x:942,y:367},{x:966,y:360},{x:991,y:352},{x:1016,y:346},
-  {x:1042,y:337},{x:1064,y:330},{x:1088,y:324},{x:1110,y:317}
-];
-
-const B2_raw = [
-  {x:215,y:391},{x:223,y:424},{x:232,y:472},{x:231,y:536},
-  {x:232,y:584},{x:240,y:616},{x:248,y:663},{x:248,y:696},
-  {x:247,y:744},{x:255,y:776},{x:263,y:824},{x:263,y:856},
-  {x:263,y:887},{x:249,y:936},{x:247,y:983},{x:240,y:1016},
-  {x:232,y:1055},{x:234,y:1095},{x:232,y:1144},{x:242,y:1176}
-];
-const B2 = B2_raw.map(p => ({x: p.x * SC, y: p.y * SC}));
-
-/* ════════════════════════════════════════════════
-   Dado um ponto (cx, cy) na câmera, encontra o
-   ponto correspondente no mapa aéreo interpolando
-   na tabela de referência mais próxima (A ou B).
-════════════════════════════════════════════════ */
-function closestOnPolyline(pt, poly) {
-  let bestI = 0, bestT = 0, bestD = Infinity;
-  for (let i = 0; i < poly.length - 1; i++) {
-    const a = poly[i], b = poly[i+1];
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const len2 = dx*dx + dy*dy;
-    if (len2 === 0) continue;
-    const t = Math.max(0, Math.min(1, ((pt.x-a.x)*dx + (pt.y-a.y)*dy) / len2));
-    const px = a.x + t*dx, py = a.y + t*dy;
-    const d = Math.hypot(pt.x - px, pt.y - py);
-    if (d < bestD) { bestD = d; bestI = i; bestT = t; }
-  }
-  return {i: bestI, t: bestT, d: bestD};
+function ptDist(a, b) {
+  return Math.hypot(b.x - a.x, b.y - a.y);
 }
 
-function camToAerial(cx, cy) {
-  const pt = {x: cx, y: cy};
-
-  const rA = closestOnPolyline(pt, A1);
-  const rB = closestOnPolyline(pt, B1);
-
-  let ref, map;
-  if (rA.d <= rB.d) { ref = A1; map = A2; const r = rA; ref = A1;
-    const a = map[r.i], b = map[r.i+1] || map[map.length-1];
-    return {x: a.x + (b.x-a.x)*r.t, y: a.y + (b.y-a.y)*r.t};
-  } else {
-    const r = rB;
-    const a = B2[r.i], b = B2[r.i+1] || B2[B2.length-1];
-    return {x: a.x + (b.x-a.x)*r.t, y: a.y + (b.y-a.y)*r.t};
-  }
+function polyLen(pts) {
+  let total = 0;
+  for (let i = 0; i < pts.length - 1; i++) total += ptDist(pts[i], pts[i + 1]);
+  return total;
 }
 
-/* ════════════════════════════════════════════════
-   CARS
-════════════════════════════════════════════════ */
+function pointAtFraction(pts, t) {
+  if (!pts.length) return {x:0, y:0};
+  if (pts.length === 1) return {x:pts[0].x, y:pts[0].y};
+
+  t = Math.max(0, Math.min(1, t));
+  const total = polyLen(pts) || 0.001;
+  const target = total * t;
+
+  let acc = 0;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1];
+    const seg = ptDist(a, b) || 0.001;
+    if (acc + seg >= target) {
+      const u = (target - acc) / seg;
+      return {
+        x: a.x + (b.x - a.x) * u,
+        y: a.y + (b.y - a.y) * u
+      };
+    }
+    acc += seg;
+  }
+  const last = pts[pts.length - 1];
+  return {x:last.x, y:last.y};
+}
+
+function closestOnPolyline(p, pts) {
+  if (pts.length < 2) {
+    const q = pts[0] || {x:0, y:0};
+    return {dist: Math.hypot(p.x - q.x, p.y - q.y), frac: 0};
+  }
+
+  const total = polyLen(pts) || 0.001;
+  let best = {dist: Infinity, frac: 0};
+  let acc = 0;
+
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1];
+    const vx = b.x - a.x;
+    const vy = b.y - a.y;
+    const seg = Math.hypot(vx, vy) || 0.001;
+
+    let u = ((p.x - a.x) * vx + (p.y - a.y) * vy) / (seg * seg);
+    u = Math.max(0, Math.min(1, u));
+
+    const qx = a.x + vx * u;
+    const qy = a.y + vy * u;
+    const dist = Math.hypot(p.x - qx, p.y - qy);
+    const frac = (acc + seg * u) / total;
+
+    if (dist < best.dist) best = {dist, frac};
+    acc += seg;
+  }
+
+  return best;
+}
+
 const NS = 'http://www.w3.org/2000/svg';
+
 const COLORS = [
-  {body:'#1a44cc',roof:'#0e2580',stroke:'#4d7fff',ws:'rgba(150,205,255,0.55)', dot:'#4d7fff'},
-  {body:'#bb2020',roof:'#7a1010',stroke:'#ff5555',ws:'rgba(255,200,180,0.45)', dot:'#ff5555'},
-  {body:'#cccccc',roof:'#888888',stroke:'#ffffff',ws:'rgba(200,230,255,0.55)', dot:'#ffffff'},
-  {body:'#1a1a1a',roof:'#111111',stroke:'#555555',ws:'rgba(160,200,240,0.45)', dot:'#aaaaaa'},
+  {body:'#1a44cc',roof:'#0e2580',stroke:'#4d7fff',ws:'rgba(150,205,255,0.55)'},
+  {body:'#bb2020',roof:'#7a1010',stroke:'#ff5555',ws:'rgba(255,200,180,0.45)'},
+  {body:'#cccccc',roof:'#888888',stroke:'#ffffff',ws:'rgba(200,230,255,0.55)'},
+  {body:'#1a1a1a',roof:'#111111',stroke:'#555555',ws:'rgba(160,200,240,0.45)'},
 ];
 
 let BASE_SPEED = 2.0;
+
+const MINI_ROUTES = [];
+
+(function buildMiniRoutes() {
+  MINI_ROUTES.push({src: UPPER, dst: MINI_UPPER});
+  MINI_ROUTES.push({src: LOWER, dst: MINI_LOWER});
+  MINI_ROUTES.push({src: ENTRY, dst: MINI_ENTRY});
+
+  VIAS.forEach((v, i) => {
+    MINI_ROUTES.push({src: v, dst: MINI_VIAS[i]});
+  });
+})();
+
+function mapPointToMini(x, y) {
+  const p = {x, y};
+  let bestRoute = MINI_ROUTES[0];
+  let best = closestOnPolyline(p, bestRoute.src);
+
+  for (let i = 1; i < MINI_ROUTES.length; i++) {
+    const test = closestOnPolyline(p, MINI_ROUTES[i].src);
+    if (test.dist < best.dist) {
+      best = test;
+      bestRoute = MINI_ROUTES[i];
+    }
+  }
+
+  return pointAtFraction(bestRoute.dst, best.frac);
+}
 
 class Car {
   constructor(colorIdx, delayFrames) {
@@ -266,91 +352,111 @@ class Car {
     this.path    = [];
     this.segIdx  = 0;
     this.segDist = 0;
-    this.x = UPPER[0].x; this.y = UPPER[0].y; this.angle = 0;
+    this.x = UPPER[0].x;
+    this.y = UPPER[0].y;
+    this.angle = 0;
     this.el = null;
-    this.dot = null;   // ponto no minimapa
+    this.miniEl = null;
     this._makeSVG();
-    this._makeDot();
   }
 
   _makeSVG() {
-    const g  = document.createElementNS(NS, 'g');
-    g.style.display = 'none';
-    const mk = (tag, a) => {
-      const e = document.createElementNS(NS, tag);
-      Object.entries(a).forEach(([k,v]) => e.setAttribute(k,v));
-      return e;
-    };
-    g.appendChild(mk('ellipse',{rx:13,ry:4,cx:0,cy:7,fill:'rgba(0,0,0,0.38)'}));
-    g.appendChild(mk('rect',{x:-13,y:-6,width:26,height:12,rx:2.5,
-      fill:this.color.body,stroke:this.color.stroke,'stroke-width':1.2}));
-    g.appendChild(mk('rect',{x:-6,y:-5,width:13,height:10,rx:1.5,fill:this.color.roof}));
-    g.appendChild(mk('rect',{x:-12,y:-5,width:7,height:10,rx:1.2,fill:this.color.ws}));
-    g.appendChild(mk('circle',{cx:-12,cy:-4,r:1.5,fill:'#ffffaa'}));
-    g.appendChild(mk('circle',{cx:-12,cy: 4,r:1.5,fill:'#ffffaa'}));
-    g.appendChild(mk('circle',{cx:12,cy:-4,r:1.4,fill:'#aa0000'}));
-    g.appendChild(mk('circle',{cx:12,cy: 4,r:1.4,fill:'#aa0000'}));
-    g.setAttribute('filter','url(#glow)');
-    document.getElementById('g-cars').appendChild(g);
-    this.el = g;
-  }
-
-  _makeDot() {
     const g = document.createElementNS(NS, 'g');
     g.style.display = 'none';
+
     const mk = (tag, a) => {
       const e = document.createElementNS(NS, tag);
-      Object.entries(a).forEach(([k,v]) => e.setAttribute(k,v));
+      Object.entries(a).forEach(([k, v]) => e.setAttribute(k, v));
       return e;
     };
-    // sombra
-    g.appendChild(mk('circle',{r:3.5, fill:'rgba(0,0,0,0.5)'}));
-    // ponto colorido
-    g.appendChild(mk('circle',{r:2.8, fill:this.color.dot}));
-    document.getElementById('g-minimap-dots').appendChild(g);
-    this.dot = g;
+
+    g.appendChild(mk('ellipse', {rx:13, ry:4, cx:0, cy:7, fill:'rgba(0,0,0,0.38)'}));
+    g.appendChild(mk('rect', {
+      x:-13, y:-6, width:26, height:12, rx:2.5,
+      fill:this.color.body, stroke:this.color.stroke, 'stroke-width':1.2
+    }));
+    g.appendChild(mk('rect', {x:-6, y:-5, width:13, height:10, rx:1.5, fill:this.color.roof}));
+    g.appendChild(mk('rect', {x:-12, y:-5, width:7, height:10, rx:1.2, fill:this.color.ws}));
+    g.appendChild(mk('circle', {cx:-12, cy:-4, r:1.5, fill:'#ffffaa'}));
+    g.appendChild(mk('circle', {cx:-12, cy: 4, r:1.5, fill:'#ffffaa'}));
+    g.appendChild(mk('circle', {cx:12, cy:-4, r:1.4, fill:'#aa0000'}));
+    g.appendChild(mk('circle', {cx:12, cy: 4, r:1.4, fill:'#aa0000'}));
+    g.setAttribute('filter', 'url(#glow)');
+
+    document.getElementById('g-cars').appendChild(g);
+    this.el = g;
+
+    const m = document.createElementNS(NS, 'circle');
+    m.setAttribute('r', '5');
+    m.setAttribute('fill', this.color.body);
+    m.setAttribute('stroke', '#ffffff');
+    m.setAttribute('stroke-width', '1');
+    m.style.display = 'none';
+    document.getElementById('mini-cars').appendChild(m);
+    this.miniEl = m;
   }
 
   _newPath() {
     const viaIdx = Math.random() < 0.25 ? -1 : Math.floor(Math.random() * 9);
     this.path = buildPath(viaIdx);
-    this.segIdx = 0; this.segDist = 0;
+    this.segIdx = 0;
+    this.segDist = 0;
   }
 
   update() {
     if (!this.active) {
       if (++this.timer >= this.delay) {
-        this.active = true; this._newPath();
-        this.x = this.path[0].x; this.y = this.path[0].y;
+        this.active = true;
+        this._newPath();
+        this.x = this.path[0].x;
+        this.y = this.path[0].y;
         this.el.style.display = '';
-        this.dot.style.display = '';
+        this.miniEl.style.display = '';
+      } else {
+        return;
       }
-      return;
     }
+
     let rem = BASE_SPEED;
     while (rem > 0) {
-      if (this.segIdx >= this.path.length - 1) { this._newPath(); rem = 0; break; }
-      const p0 = this.path[this.segIdx], p1 = this.path[this.segIdx+1];
-      const len = ptDist(p0,p1) || 0.001;
+      if (this.segIdx >= this.path.length - 1) {
+        this._newPath();
+        rem = 0;
+        break;
+      }
+      const p0 = this.path[this.segIdx];
+      const p1 = this.path[this.segIdx + 1];
+      const len = ptDist(p0, p1) || 0.001;
       const toEnd = len - this.segDist;
-      if (rem < toEnd) { this.segDist += rem; rem = 0; }
-      else { rem -= toEnd; this.segIdx++; this.segDist = 0; }
+
+      if (rem < toEnd) {
+        this.segDist += rem;
+        rem = 0;
+      } else {
+        rem -= toEnd;
+        this.segIdx++;
+        this.segDist = 0;
+      }
     }
+
     if (this.segIdx < this.path.length - 1) {
-      const a = this.path[this.segIdx], b = this.path[this.segIdx+1];
-      const t = Math.min(1, this.segDist / (ptDist(a,b) || 0.001));
-      this.x = a.x + (b.x-a.x)*t; this.y = a.y + (b.y-a.y)*t;
-      this.angle = Math.atan2(b.y-a.y, b.x-a.x) * 180/Math.PI;
+      const a = this.path[this.segIdx];
+      const b = this.path[this.segIdx + 1];
+      const t = Math.min(1, this.segDist / (ptDist(a, b) || 0.001));
+      this.x = a.x + (b.x - a.x) * t;
+      this.y = a.y + (b.y - a.y) * t;
+      this.angle = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
     }
 
-    // câmera
     const sc = perspScale(this.y);
-    this.el.setAttribute('transform',
-      `translate(${this.x.toFixed(1)},${this.y.toFixed(1)}) rotate(${this.angle.toFixed(1)}) scale(${sc.toFixed(3)})`);
+    this.el.setAttribute(
+      'transform',
+      `translate(${this.x.toFixed(1)},${this.y.toFixed(1)}) rotate(${this.angle.toFixed(1)}) scale(${sc.toFixed(3)})`
+    );
 
-    // minimapa
-    const mp = camToAerial(this.x, this.y);
-    this.dot.setAttribute('transform', `translate(${mp.x.toFixed(1)},${mp.y.toFixed(1)})`);
+    const m = mapPointToMini(this.x, this.y);
+    this.miniEl.setAttribute('cx', m.x.toFixed(1));
+    this.miniEl.setAttribute('cy', m.y.toFixed(1));
   }
 }
 
@@ -361,64 +467,65 @@ const CARS = [
   new Car(3, 640),
 ];
 
-/* ════════════════════════════════════════════════
-   DEBUG (rotas na câmera)
-════════════════════════════════════════════════ */
 (function buildDebug() {
-  const g  = document.getElementById('g-debug');
+  const g = document.getElementById('g-debug');
+
   const mk = (tag, a) => {
     const e = document.createElementNS(NS, tag);
-    Object.entries(a).forEach(([k,v]) => e.setAttribute(k,String(v)));
+    Object.entries(a).forEach(([k, v]) => e.setAttribute(k, String(v)));
     return e;
   };
+
   const mkPath = (pts, color, dash) => {
-    const d = pts.map((p,i)=>`${i?'L':'M'} ${p.x},${p.y}`).join(' ');
-    g.appendChild(mk('path',{d,fill:'none',stroke:color,'stroke-width':1.5,'stroke-dasharray':dash||'8 5'}));
+    const d = pts.map((p, i) => `${i ? 'L' : 'M'} ${p.x},${p.y}`).join(' ');
+    g.appendChild(mk('path', {
+      d,
+      fill:'none',
+      stroke:color,
+      'stroke-width':1.5,
+      'stroke-dasharray':dash || '8 5'
+    }));
   };
-  mkPath(UPPER,'rgba(0,220,255,0.7)');
-  mkPath(LOWER,'rgba(255,220,0,0.7)');
-  mkPath(ENTRY,'rgba(255,255,255,0.75)','6 4');
-  VIAS.forEach(v => mkPath(v,'rgba(80,255,80,0.75)','6 4'));
+
+  mkPath(UPPER, 'rgba(0,220,255,0.7)');
+  mkPath(LOWER, 'rgba(255,220,0,0.7)');
+  mkPath(ENTRY, 'rgba(255,255,255,0.7)', '6 4');
+  VIAS.forEach(v => mkPath(v, 'rgba(80,255,80,0.75)', '6 4'));
+
   VIA_ENTRY.forEach(i => {
     const p = UPPER[i];
-    g.appendChild(mk('circle',{cx:p.x,cy:p.y,r:5,fill:'rgba(255,80,255,0.9)'}));
+    g.appendChild(mk('circle', {cx:p.x, cy:p.y, r:5, fill:'rgba(255,80,255,0.9)'}));
   });
+
   VIA_EXIT.forEach(i => {
     const p = LOWER[i];
-    g.appendChild(mk('circle',{cx:p.x,cy:p.y,r:5,fill:'rgba(255,150,0,0.9)'}));
+    g.appendChild(mk('circle', {cx:p.x, cy:p.y, r:5, fill:'rgba(255,150,0,0.9)'}));
   });
 })();
 
-function loop() { requestAnimationFrame(loop); CARS.forEach(c => c.update()); }
+function loop() {
+  requestAnimationFrame(loop);
+  CARS.forEach(c => c.update());
+}
 loop();
 
-/* ════════════════════════════════════════════════
-   CONTROLES
-════════════════════════════════════════════════ */
 let debugOn = false;
 function toggleDebug() {
   debugOn = !debugOn;
   document.getElementById('g-debug').setAttribute('display', debugOn ? '' : 'none');
   const btn = document.getElementById('btn-debug');
-  btn.textContent = `▣ ROTAS: ${debugOn?'ON':'OFF'}`;
+  btn.textContent = `▣ ROTAS: ${debugOn ? 'ON' : 'OFF'}`;
   btn.classList.toggle('on', debugOn);
 }
 
 let speedIdx = 0;
 const SPEEDS = [2.0, 4.0, 0.8];
-const SLBLS  = ['⏩ NORMAL','⏩⏩ RÁPIDO','🐢 LENTO'];
+const SLBLS  = ['⏩ NORMAL', '⏩⏩ RÁPIDO', '🐢 LENTO'];
+
 function toggleSpeed() {
-  speedIdx = (speedIdx+1) % SPEEDS.length;
+  speedIdx = (speedIdx + 1) % SPEEDS.length;
   BASE_SPEED = SPEEDS[speedIdx];
   document.getElementById('btn-speed').textContent = SLBLS[speedIdx];
-}
-
-let minimapOn = true;
-function toggleMinimap() {
-  minimapOn = !minimapOn;
-  document.getElementById('minimap-wrap').style.display = minimapOn ? '' : 'none';
-  document.getElementById('btn-minimap').textContent = `🗺 MAPA: ${minimapOn?'ON':'OFF'}`;
-  document.getElementById('btn-minimap').classList.toggle('on', minimapOn);
 }
 </script>
 </body>
